@@ -1,0 +1,106 @@
+openapi: 3.0.0
+info:
+  title: Grading API
+  description: This is a Grading API developed using the [judge0 API](https://api.judge0.com/#top).
+  version: "1.0"
+servers:
+  - url: https://grading-api.azurewebsites.net
+    description: This is the server's url
+tags:
+  - name: languages
+  - name: grade
+paths:
+  /languages:
+    get:
+      security:
+        - BasicAuth: []
+      tags:
+        - languages
+      summary: Return a list of available languages.
+      description: Endpoint for getting available languages.
+      responses:
+        "200":
+          description: A list of available languages will be returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  languages:
+                    type: array
+                    items:
+                      type: string
+                      example: ["python", "php", "java", "c++"]
+        "401":
+          description: Invalid username/password.
+          content:
+            text/html:
+              schema:
+                type: string
+                example: Unauthorized access
+  /grade:
+    post:
+      security:
+        - BasicAuth: []
+      tags:
+        - grade
+      summary: Return a list of available languages.
+      description: Endpoint for getting available languages.
+      requestBody:
+        description: Kogul
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lang:
+                  type: string
+                  enum:
+                    - python
+                    - java
+                    - c++
+                    - javascript
+                input:
+                  type: object
+                  example:
+                    1: base64_encoded_filecontent
+                    2: base64_encoded_filecontent
+                output:
+                  type: object
+                  example:
+                    1: base64_encoded_filecontents
+                    2: base64_encoded_filecontents
+                submissions:
+                  type: object
+                  example:
+                    1: base64_encoded_filecontents
+                    2: base64_encoded_filecontents
+                    3: base64_encoded_filecontents
+                    4: base64_encoded_filecontents
+      responses:
+        "200":
+          description: A list of available languages will be returned
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  1:
+                    type: string
+                    example: 4
+                  2:
+                    type: string
+                    example: 2
+        "401":
+          description: Invalid username/password.
+          content:
+            text/html:
+              schema:
+                type: string
+                example: Unauthorized access
+components:
+  securitySchemes:
+    BasicAuth:
+      type: http
+      scheme: basic
