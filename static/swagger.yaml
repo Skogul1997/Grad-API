@@ -44,8 +44,8 @@ paths:
         - BasicAuth: []
       tags:
         - grade
-      summary: Return a list of available languages.
-      description: Endpoint for getting available languages.
+      summary: Grades submitted assignments.
+      description: Grades are returned as json.
       requestBody:
         description: Endpoint to grade submissions.
         required: true
