@@ -47,7 +47,7 @@ paths:
       summary: Return a list of available languages.
       description: Endpoint for getting available languages.
       requestBody:
-        description: Kogul
+        description: Endpoint to grade submissions.
         required: true
         content:
           application/json:
