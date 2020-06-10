@@ -48,9 +48,9 @@ def verify_password(username, password):
 
 langs = {
     "python": 71,
-    "php": 68,
+    "javascript": 63,
     "java": 62,
-    "c++": 54
+    "cc": 54
 }
 
 
