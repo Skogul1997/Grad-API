@@ -111,6 +111,8 @@ class grade(Resource):
     def post(self):
         # start_time = time.time()
         data = request.get_json()
+        if 'lang' not in data.keys():
+            return {"status": "Fail", "error": "Language was not speicified"}, 200
         a, b = {}, {}
         lang = data['lang']
         for key in data['submissions'].keys():
