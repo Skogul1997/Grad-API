@@ -93,8 +93,10 @@ def getSubmissionResults(lang, inputstring, outputstring, dat, b, x):
         "stdin": inputstring,
         "expected_output": outputstring
     }
+
     r = requests.post(url, data=data, headers=headers).json()["token"]
     b[r] = x
+    # print(dat, r)
     # print(r)
 
 
@@ -124,6 +126,19 @@ class grade(Resource):
 
             outstring = (base64.b64decode(
                 data['output'][key].encode('ascii'))).decode('ascii')
+            # threads = []
+
+            # for key in data["submissions"].keys():
+            #     sub = (base64.b64decode(
+            #         data["submissions"][key].encode('ascii'))).decode('ascii')
+            #     # x = pool.submit(lambda p: getSubmissionResults(*p), [
+            #     #     lang, instring, outstring, sub, b, key])
+            #     t = Thread(target=getSubmissionResults, args=(
+            #         lang, instring, outstring, sub, b, key, ))
+            #     threads.append(t)
+            #     t.start()
+            # for t in threads:
+            #     t.join()
 
             t = Thread(target=getResults, args=(
                 instring, outstring, data['submissions'], lang, b, ))
@@ -161,9 +176,9 @@ class grade(Resource):
                 if (key not in done):
                     r1 = requests.get(url+key, headers=headers).json()
                     if (r1['status']['id'] not in [1, 2]):
-                        token = r1['token']
+                        # token = r1['token']
                         if (r1['status']['id'] == 3):
-                            a[b[token]] += 1
+                            a[b[key]] += 1
                         n -= 1
                         done.append(key)
                         # del(b[token])
